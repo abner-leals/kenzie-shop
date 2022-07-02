@@ -25,13 +25,17 @@ export const CardP = ({ produto, cart }) => {
   const dispatch = useDispatch();
   return (
     <Card
-      sx={{
-        display: "flex",
-        maxWidth: 600,
-        minWidth: 150,
-        justifyContent: "space-between",
-        padding: 1,
-      }}
+      sx={
+        cart
+          ? {
+              display: "flex",
+              maxWidth: 600,
+              minWidth: 150,
+              justifyContent: "space-between",
+              padding: 1,
+            }
+          : { display: "flex", width: 300 }
+      }
     >
       <CardMedia
         component="img"
@@ -40,14 +44,20 @@ export const CardP = ({ produto, cart }) => {
         alt={produto.name}
       />
       <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "end",
-          width: "59%",
-        }}
+        sx={
+          cart
+            ? {
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "end",
+                width: "59%",
+              }
+            : { display: "flex", flexDirection: "column" }
+        }
       >
-        <CardContent sx={{ flex: "1 0 auto", width: "100%" }}>
+        <CardContent
+          sx={cart ? { flex: "1 0 auto", width: "100%" } : { flex: "1 0 auto" }}
+        >
           <Typography component="div" variant="h5">
             {produto.name}
           </Typography>
@@ -63,14 +73,18 @@ export const CardP = ({ produto, cart }) => {
           R$: {produto.price}
         </Typography>
         <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            pl: 1,
-            pb: 1,
-            width: "100%",
-          }}
+          sx={
+            cart
+              ? {
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  pl: 1,
+                  pb: 1,
+                  width: "100%",
+                }
+              : { display: "flex", alignItems: "center", pl: 1, pb: 1 }
+          }
         >
           {cart ? (
             <>
@@ -94,7 +108,11 @@ export const CardP = ({ produto, cart }) => {
                 )}
                 <IconButton
                   aria-label="Aumentar quantidade"
-                  onClick={() => dispatch(aumentarQuantidadeThunk(produto.id))}
+                  onClick={() => {
+                    dispatch(aumentarQuantidadeThunk(produto.id));
+                    console.log(produto);
+                    console.log(produto.id);
+                  }}
                 >
                   <AddCircleOutline />
                 </IconButton>
@@ -114,7 +132,7 @@ export const CardP = ({ produto, cart }) => {
                 dispatch(addToCartThunk({ ...produto, quantidade: 1 }))
               }
             >
-              Adicionar ao carrinho
+              Adicionar
             </Button>
           )}
         </Box>

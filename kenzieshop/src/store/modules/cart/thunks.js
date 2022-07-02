@@ -4,26 +4,23 @@ import {
   diminuirQuantidade,
   removeFromCart,
 } from "./actions";
+import { useDispatch as dispacha } from "react-redux";
 
 export const addToCartThunk = (produto) => {
   const { id } = produto;
+  console.log(produto);
   return (dispatch) => {
-    const list = JSON.parse(localStorage.getItem("cart")) || [];
+    let list = JSON.parse(localStorage.getItem("cart")) || [];
+    const index = list.map((produto, index) => produto.id === id && index);
 
-    const chaves = list.map((prod) => prod.id);
+    let teste = index.filter((ind) => ind !== false && ind !== []);
 
-    let contem = chaves.includes(id);
-    console.log(contem);
-    console.log(contem);
-    console.log(contem);
-    if (contem) {
-      aumentarQuantidadeThunk(id);
-    } else {
-      dispatch(addToCart(produto));
-      list.push(produto);
-    }
-
-    localStorage.setItem("cart", JSON.stringify(list));
+    console.log("teste:", teste);
+    teste.length > 0
+      ? dispatch(aumentarQuantidadeThunk(id))
+      : dispatch(addToCart(produto)) &&
+        list.push(produto) &&
+        localStorage.setItem("cart", JSON.stringify(list));
   };
 };
 
@@ -35,27 +32,25 @@ export const removeFromCartThunk = (id) => (dispatch, getStore) => {
 };
 
 export const aumentarQuantidadeThunk = (id) => (dispatch, getStore) => {
-  const { cart } = getStore();
-  let produto;
-  cart.filter(
-    (prod) => prod.id === id && (prod.quantidade++, (produto = prod))
-  );
-  const list = cart.filter((produto) => produto.id !== id);
-  const newList = [...list, produto];
+  let list = JSON.parse(localStorage.getItem("cart"));
+  for (let i = 0; i < list.length; i++) {
+    if (list[i].id === id) {
+      list[i].quantidade++;
+    }
+  }
 
-  localStorage.setItem("cart", JSON.stringify(newList));
-  dispatch(aumentarQuantidade(newList));
+  localStorage.setItem("cart", JSON.stringify(list));
+  dispatch(aumentarQuantidade(list));
 };
 
 export const diminuirQuantidadeThunk = (id) => (dispatch, getStore) => {
-  const { cart } = getStore();
-  let produto;
-  cart.filter(
-    (prod) => prod.id === id && (prod.quantidade--, (produto = prod))
-  );
-  const list = cart.filter((produto) => produto.id !== id);
-  const newList = [...list, produto];
+  let list = JSON.parse(localStorage.getItem("cart"));
+  for (let i = 0; i < list.length; i++) {
+    if (list[i].id === id) {
+      list[i].quantidade--;
+    }
+  }
 
-  localStorage.setItem("cart", JSON.stringify(newList));
-  dispatch(diminuirQuantidade(newList));
+  localStorage.setItem("cart", JSON.stringify(list));
+  dispatch(aumentarQuantidade(list));
 };
