@@ -1,5 +1,4 @@
 import * as React from "react";
-import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
@@ -14,9 +13,16 @@ import {
   DeleteOutline,
   RemoveCircleOutline,
 } from "@mui/icons-material";
+import { useDispatch } from "react-redux";
+import {
+  addToCartThunk,
+  aumentarQuantidadeThunk,
+  diminuirQuantidadeThunk,
+  removeFromCartThunk,
+} from "../../store/modules/cart/thunks";
 
 export const CardP = ({ produto, cart }) => {
-  const theme = useTheme();
+  const dispatch = useDispatch();
   return (
     <Card
       sx={{
@@ -54,7 +60,7 @@ export const CardP = ({ produto, cart }) => {
           </Typography>
         </CardContent>
         <Typography variant="subtitle1" color="text.secondary" component="div">
-          R$: {produto.price.toFixed(2)}
+          R$: {produto.price}
         </Typography>
         <Box
           sx={{
@@ -73,24 +79,41 @@ export const CardP = ({ produto, cart }) => {
                 color="text.secondary"
                 component="div"
               >
-                Quantidade: 1
+                Quantidade: {produto.quantidade}
               </Typography>
               <Box sx={{ display: "flex", alignItems: "center", pl: 1, pb: 1 }}>
                 {produto.quantidade > 1 && (
-                  <IconButton aria-label="Diminuir quantidade">
+                  <IconButton
+                    aria-label="Diminuir quantidade"
+                    onClick={() =>
+                      dispatch(diminuirQuantidadeThunk(produto.id))
+                    }
+                  >
                     <RemoveCircleOutline />
                   </IconButton>
                 )}
-                <IconButton aria-label="Aumentar quantidade">
+                <IconButton
+                  aria-label="Aumentar quantidade"
+                  onClick={() => dispatch(aumentarQuantidadeThunk(produto.id))}
+                >
                   <AddCircleOutline />
                 </IconButton>
-                <IconButton aria-label="Remover produto">
+                <IconButton
+                  aria-label="Remover produto"
+                  onClick={() => dispatch(removeFromCartThunk(produto.id))}
+                >
                   <DeleteOutline />
                 </IconButton>
               </Box>
             </>
           ) : (
-            <Button variant="outlined" startIcon={<AddShoppingCartOutlined />}>
+            <Button
+              variant="outlined"
+              startIcon={<AddShoppingCartOutlined />}
+              onClick={() =>
+                dispatch(addToCartThunk({ ...produto, quantidade: 1 }))
+              }
+            >
               Adicionar ao carrinho
             </Button>
           )}

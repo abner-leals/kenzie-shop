@@ -1,16 +1,29 @@
-import { ADD_PRODUTO } from "./actionsType";
-import { REMOVE_PRODUTO } from "./actionsType";
+import {
+  ADD_PRODUTO,
+  REMOVE_PRODUTO,
+  AUMENTAR_PRODUTO,
+  DIMINUIR_PRODUTO,
+} from "./actionsType";
+import {} from "./actionsType";
 
-const cartReducer = (state = [], action) => {
+const cartReducer = (
+  state = JSON.parse(localStorage.getItem("cart")) || [],
+  action
+) => {
+  const { list, product } = action;
+
   switch (action.type) {
     case ADD_PRODUTO:
-      const { product } = action;
       return [...state, product];
 
     case REMOVE_PRODUTO:
-      const { id } = action;
-      const newList = state.filter((produto) => produto.id !== id);
-      return newList;
+      return list;
+
+    case AUMENTAR_PRODUTO:
+      return list;
+
+    case DIMINUIR_PRODUTO:
+      return list;
 
     default:
       return state;
