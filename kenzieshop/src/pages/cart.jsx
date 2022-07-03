@@ -1,9 +1,11 @@
 import React from "react";
 
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import Cart from "../components/Cart/";
+import { useSelector } from "react-redux";
 
 export default function Carrinho() {
+  const cart = useSelector(({ cart }) => cart);
   return (
     <div className="App">
       <Box
@@ -15,7 +17,13 @@ export default function Carrinho() {
           background: "#abb6ff",
         }}
       >
-        <Cart />
+        {cart.length > 0 ? (
+          <Cart />
+        ) : (
+          <Typography variant="h6" noWrap component="div">
+            Ainda não há nada adicionado
+          </Typography>
+        )}
       </Box>
     </div>
   );

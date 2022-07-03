@@ -71,7 +71,7 @@ export const CardP = ({ produto, cart }) => {
           </Typography>
         </CardContent>
         <Typography variant="subtitle1" color="text.secondary" component="div">
-          R$: {produto.price}
+          R$: {produto.price.toFixed(2).replace(".", ",")}
         </Typography>
         <Box
           sx={

@@ -8,6 +8,7 @@ import Badge from "@mui/material/Badge";
 import { ShoppingCart } from "@mui/icons-material";
 
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 export default function PrimarySearchAppBar() {
   const cart = useSelector(({ cart }) => cart);
   return (
@@ -22,29 +23,33 @@ export default function PrimarySearchAppBar() {
             sx={{ mr: 2 }}
           >
             <Typography variant="h6" noWrap component="div">
-              KENZIE SHOP
+              <Link to="/pagina-inicial">KENZIE SHOP</Link>
             </Typography>
           </IconButton>
 
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <IconButton size="large" color="inherit">
-              <Badge badgeContent={cart.length} color="error">
-                <ShoppingCart />
-              </Badge>
-            </IconButton>
+            <Link to="/cart">
+              <IconButton size="large" color="inherit">
+                <Badge badgeContent={cart.length} color="error">
+                  <ShoppingCart />
+                </Badge>
+              </IconButton>
+            </Link>
           </Box>
-          <Box sx={{ display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
-            >
-              <Badge badgeContent={cart.length} color="error">
-                <ShoppingCart />
-              </Badge>
-            </IconButton>
-          </Box>
+          <Link to="/cart">
+            <Box sx={{ display: { xs: "flex", md: "none" } }}>
+              <IconButton
+                size="large"
+                aria-label="show 17 new notifications"
+                color="inherit"
+              >
+                <Badge badgeContent={cart.length} color="error">
+                  <ShoppingCart />
+                </Badge>
+              </IconButton>
+            </Box>
+          </Link>
         </Toolbar>
       </AppBar>
     </Box>
