@@ -1,24 +1,18 @@
 import "./App.css";
-import Products from "./components/Products";
-import Cart from "./components/Cart/";
-import Box from "@mui/material/Box";
+
+import PrimarySearchAppBar from "./components/AppBar/Appbar";
+import { BrowserRouter } from "react-router-dom";
+
+import Rotas from "./routes";
+
 function App() {
   return (
-    <div className="App">
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          padding: 1,
-          background: "gray",
-        }}
-      >
-        <Products />
-        <br />
-        carrinho
-        <Cart />
-      </Box>
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <PrimarySearchAppBar />
+        <Rotas />
+      </div>
+    </BrowserRouter>
   );
 }
 

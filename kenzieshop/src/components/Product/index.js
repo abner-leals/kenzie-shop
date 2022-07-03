@@ -33,8 +33,9 @@ export const CardP = ({ produto, cart }) => {
               minWidth: 150,
               justifyContent: "space-between",
               padding: 1,
+              background: "#f5f5f5",
             }
-          : { display: "flex", width: 300 }
+          : { display: "flex", width: 310, background: "#f5f5f5" }
       }
     >
       <CardMedia

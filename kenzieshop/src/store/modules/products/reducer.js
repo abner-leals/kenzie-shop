@@ -1,13 +1,46 @@
 const defaultState = [
-  { id: 1, name: "Geladeira", price: 200 },
-  { id: 2, name: "Fogão", price: 640 },
-  { id: 3, name: "Máquina de lavar", price: 420 },
-  { id: 4, name: "Luminária", price: 45 },
-  { id: 5, name: "Televisor", price: 500 },
-  { id: 6, name: "Celular", price: 340 },
-  { id: 7, name: "Notebook", price: 730 },
-  { id: 8, name: "Cafeteira", price: 80 },
-  { id: 9, name: "Cama", price: 280 },
+  {
+    id: 1,
+    name: "Hamburguer",
+    category: "Sanduíches",
+    price: 14,
+    img: "https://i.imgur.com/Vng6VzV.png",
+  },
+  {
+    id: 2,
+    name: "X-Burguer",
+    category: "Sanduíches",
+    price: 16,
+    img: "https://i.imgur.com/soOUeeW.png",
+  },
+  {
+    id: 3,
+    name: "Big Kenzie",
+    category: "Sanduíches",
+    price: 18,
+    img: "https://i.imgur.com/eEzZzcF.png",
+  },
+  {
+    id: 4,
+    name: "Fanta Guaraná",
+    category: "Bebidas",
+    price: 5,
+    img: "https://i.imgur.com/YuIbfCi.png",
+  },
+  {
+    id: 5,
+    name: "Coca-Cola",
+    category: "Bebidas",
+    price: 4.99,
+    img: "https://i.imgur.com/KC2ihEN.png",
+  },
+  {
+    id: 6,
+    name: "Milkshake Ovomaltine",
+    category: "Bebidas",
+    price: 4.99,
+    img: "https://i.imgur.com/iNkD4Pq.png",
+  },
 ];
 
 const productsReducer = (state = defaultState, action) => {
