@@ -6,9 +6,10 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useSelector } from "react-redux";
+import { CartContext } from "../../providers/cart";
 
 export default function BasicCard() {
-  const cart = useSelector(({ cart }) => cart);
+  const { cart } = React.useContext(CartContext);
   return (
     <Card sx={{ minWidth: 275, margin: 2, maxHeight: 190 }}>
       <CardContent>

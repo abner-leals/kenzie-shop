@@ -7,10 +7,10 @@ import Typography from "@mui/material/Typography";
 import Badge from "@mui/material/Badge";
 import { ShoppingCart } from "@mui/icons-material";
 
-import { useSelector } from "react-redux";
+import { CartContext } from "../../providers/cart";
 import { Link } from "react-router-dom";
 export default function PrimarySearchAppBar() {
-  const cart = useSelector(({ cart }) => cart);
+  const { cart } = React.useContext(CartContext);
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">

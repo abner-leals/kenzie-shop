@@ -13,23 +13,25 @@ import {
   DeleteOutline,
   RemoveCircleOutline,
 } from "@mui/icons-material";
-import { useDispatch } from "react-redux";
-import {
-  addToCartThunk,
-  aumentarQuantidadeThunk,
-  diminuirQuantidadeThunk,
-  removeFromCartThunk,
-} from "../../store/modules/cart/thunks";
+
+import { CartContext } from "../../providers/cart";
 
 export const CardP = ({ produto, cart }) => {
-  const dispatch = useDispatch();
+  const {
+    diminuirQuantidadeThunk,
+    aumentarQuantidadeThunk,
+    removeFromCartThunk,
+    addToCartThunk,
+  } = React.useContext(CartContext);
   return (
     <Card
       sx={
         cart
           ? {
               display: "flex",
+              flexWrap: "wrap",
               maxWidth: 600,
+              alignContent: "center",
               minWidth: 150,
               justifyContent: "space-between",
               padding: 1,
@@ -100,9 +102,7 @@ export const CardP = ({ produto, cart }) => {
                 {produto.quantidade > 1 && (
                   <IconButton
                     aria-label="Diminuir quantidade"
-                    onClick={() =>
-                      dispatch(diminuirQuantidadeThunk(produto.id))
-                    }
+                    onClick={() => diminuirQuantidadeThunk(produto.id)}
                   >
                     <RemoveCircleOutline />
                   </IconButton>
@@ -110,16 +110,14 @@ export const CardP = ({ produto, cart }) => {
                 <IconButton
                   aria-label="Aumentar quantidade"
                   onClick={() => {
-                    dispatch(aumentarQuantidadeThunk(produto.id));
-                    console.log(produto);
-                    console.log(produto.id);
+                    aumentarQuantidadeThunk(produto.id);
                   }}
                 >
                   <AddCircleOutline />
                 </IconButton>
                 <IconButton
                   aria-label="Remover produto"
-                  onClick={() => dispatch(removeFromCartThunk(produto.id))}
+                  onClick={() => removeFromCartThunk(produto.id)}
                 >
                   <DeleteOutline />
                 </IconButton>
@@ -130,7 +128,8 @@ export const CardP = ({ produto, cart }) => {
               variant="outlined"
               startIcon={<AddShoppingCartOutlined />}
               onClick={() =>
-                dispatch(addToCartThunk({ ...produto, quantidade: 1 }))
+                addToCartThunk({ ...produto, quantidade: 1 }) &&
+                console.log("ok84")
               }
             >
               Adicionar

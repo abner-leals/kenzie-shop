@@ -1,10 +1,10 @@
 import { Box } from "@mui/material";
-import { useSelector } from "react-redux";
+import { useContext } from "react";
+import { CatalogueContext } from "../../providers/catalogue";
 import { CardP } from "../Product";
 
 const Products = () => {
-  const produtos = useSelector(({ products }) => products);
-
+  const { catalogue } = useContext(CatalogueContext);
   return (
     <Box
       sx={{
@@ -15,7 +15,7 @@ const Products = () => {
         padding: 2,
       }}
     >
-      {produtos.map((produto, index) => (
+      {catalogue.map((produto, index) => (
         <CardP produto={produto} key={produto.id} />
       ))}
     </Box>

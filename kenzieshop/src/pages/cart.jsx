@@ -2,10 +2,11 @@ import React from "react";
 
 import { Box, Typography } from "@mui/material";
 import Cart from "../components/Cart/";
-import { useSelector } from "react-redux";
+import { CartContext } from "../providers/cart";
 
 export default function Carrinho() {
-  const cart = useSelector(({ cart }) => cart);
+  const { cart } = React.useContext(CartContext);
+
   return (
     <div className="App">
       <Box

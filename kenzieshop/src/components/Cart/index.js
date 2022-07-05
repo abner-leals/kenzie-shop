@@ -1,16 +1,19 @@
 import { Box } from "@mui/material";
+import { useContext } from "react";
 import { useSelector } from "react-redux";
+import { CartContext } from "../../providers/cart";
 import { CardP } from "../Product";
 import BasicCard from "./somaProdutos";
 
 const Cart = () => {
-  const produtos = useSelector(({ cart }) => cart);
+  const { cart } = useContext(CartContext);
 
   return (
     <Box
       sx={{
         padding: 2,
         display: "flex",
+        flexWrap: "wrap",
         justifyContent: "space-between",
         background: "#abb6ff",
       }}
@@ -18,13 +21,14 @@ const Cart = () => {
       <Box
         sx={{
           padding: 2,
-          width: 600,
+          maxWidth: 600,
           display: "flex",
+          flexWrap: "wrap",
           flexDirection: "column",
           gap: 1,
         }}
       >
-        {produtos.map((produto, index) => (
+        {cart.map((produto, index) => (
           <CardP produto={produto} cart key={index} />
         ))}
       </Box>
